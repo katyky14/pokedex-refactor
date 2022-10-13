@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField, BooleanField, SubmitField, FloatF
 from wtforms.validators import DataRequired, Length, NumberRange
 
 class PokemonForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired(), Length(min=3, max=255, message="must be between 3 and 255 characters")]])
+    name = StringField("Name", validators=[DataRequired(), Length(min=3, max=255, message="must be between 3 and 255 characters")])
     attack = IntegerField("Attack", validators=[DataRequired(), NumberRange(min=0, max=100, message=None)])
     defense = IntegerField("Defense", validators=[DataRequired(), NumberRange(min=0, max=100, message=None)])
     imageurl = StringField("ImageUrl", validators=[DataRequired()])

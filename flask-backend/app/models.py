@@ -40,7 +40,7 @@ class Pokemon(db.Model):
 class Item(db.Model):
     __tablename__ = "items"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    happiness = db.Column(db.integer)
+    happiness = db.Column(db.Integer)
     imageUrl = db.Column(db.String(255), nullable=False)
     name = db.Column(db.String(255), nullable=False)
     price = db.Column(db.Integer, nullable=False)
