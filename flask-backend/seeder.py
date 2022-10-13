@@ -1,7 +1,14 @@
-from .models import db,Pokemon,PokemonTypes,Item
+from app.models import db,Pokemon,PokemonTypes,Item
+from random import choice, randint
+from faker import Faker
+import faker_commerce
 from app import app
 
 with app.app_context():
+    fake = Faker()
+    fake.add_provider(faker_commerce.Provider)
+    print("FAKE",fake.ecommerce_name())
+
     pokemon1 = Pokemon(
         number = 1,
         imageUrl = '/images/pokemon_snaps/1.svg',
@@ -9,10 +16,7 @@ with app.app_context():
         attack = 49,
         defense = 49,
         type = 'grass',
-        moves= [
-          'tackle',
-          'vine whip'
-        ],
+        moves= "tackle,vine whip",       
         captured = True
     )
     pokemon2 = Pokemon(
@@ -22,11 +26,7 @@ with app.app_context():
         attack= 62,
         defense= 63,
         type= 'grass',
-        moves= [
-          'tackle',
-          'vine whip',
-          'razor leaf'
-        ],
+        moves= "tackle,vine whip,razor leaf",
         captured= True
     )
 
@@ -37,11 +37,7 @@ with app.app_context():
         attack= 82,
         defense= 83,
         type= 'grass',
-        moves= [
-          'tackle',
-          'vine whip',
-          'razor leaf'
-        ],
+        moves= "tackle,vine whip,razor leaf",
         captured= True
     )
 
@@ -52,11 +48,7 @@ with app.app_context():
         attack= 52,
         defense= 43,
         type= 'fire',
-        moves= [
-          'scratch',
-          'ember',
-          'metal claw'
-        ],
+        moves= "scratch,ember,metal claw",
         captured= True
     )
 
@@ -67,12 +59,7 @@ with app.app_context():
         attack= 64,
         defense= 58,
         type= 'fire',
-        moves= [
-          'scratch',
-          'ember',
-          'metal claw',
-          'flamethrower'
-        ],
+        moves= "scratch,ember,metal claw,flamethrower",
         captured= True
     )
 
@@ -83,12 +70,7 @@ with app.app_context():
         attack= 84,
         defense= 78,
         type= 'fire',
-        moves= [
-          'flamethrower',
-          'wing attack',
-          'slash',
-          'metal claw'
-        ],
+        moves= "flamethrower,wing attack,slash,metal claw",
         captured= True
     )
 
@@ -99,11 +81,7 @@ with app.app_context():
         attack= 48,
         defense= 65,
         type= 'water',
-        moves= [
-          'tackle',
-          'bubble',
-          'water gun'
-        ],
+        moves= "tackle,bubble,water gun",
         captured= True
     )
 
@@ -115,12 +93,7 @@ with app.app_context():
         attack= 63,
         defense= 80,
         type= 'water',
-        moves= [
-          'tackle',
-          'bubble',
-          'water gun',
-          'bite'
-        ]
+        moves= "tackle,bubble,water gun,bite"
     )
 
     pokemon9 = Pokemon(
@@ -130,12 +103,7 @@ with app.app_context():
         attack= 83,
         defense= 100,
         type= 'water',
-        moves= [
-          'hydro pump',
-          'bubble',
-          'water gun',
-          'bite'
-        ]
+        moves= "hydro pump,bubble,water gun,bite"
     )
 
     pokemon10 = Pokemon(
@@ -145,9 +113,7 @@ with app.app_context():
         attack= 30,
         defense= 35,
         type= 'bug',
-        moves= [
-          'tackle'
-        ]
+        moves= "tackle"
     )
 
     pokemon11 = Pokemon(
@@ -157,12 +123,7 @@ with app.app_context():
         attack= 45,
         defense= 50,
         type= 'bug',
-        moves= [
-          'confusion',
-          'gust',
-          'psybeam',
-          'silver wind'
-        ],
+        moves= "confusion,gust,psybeam,silver wind",
     )
 
     pokemon12 = Pokemon(
@@ -172,9 +133,7 @@ with app.app_context():
         attack= 35,
         defense= 30,
         type= 'bug',
-        moves= [
-          'poison sting'
-        ],
+        moves= "poison sting",
     )
     pokemon13 = Pokemon(
         number= 16,
@@ -183,10 +142,7 @@ with app.app_context():
         attack= 45,
         defense= 40,
         type= 'normal',
-        moves= [
-          'tackle',
-          'gust'
-        ],
+        moves= "tackle,gust",
     )
     pokemon14 =Pokemon(
         number= 17,
@@ -195,21 +151,39 @@ with app.app_context():
         attack= 60,
         defense= 55,
         type= 'normal',
-        moves= [
-          'tackle',
-          'gust',
-          'wing attack'
-        ],
+        moves= "tackle,gust,wing attack",
     )
     pokemon15 =Pokemon(
-        number= 18,
+        number = 18,
         imageUrl= '/images/pokemon_snaps/18.svg',
         name= 'Pidgeot',
         attack= 80,
         defense= 75,
-        type= 'normal',
-        moves= [
-          'tackle',
-          'gust',
-          'wing attack'
-        ],)
+        type = 'normal',
+        moves= "tackle,gust,wing attack",
+        )
+    pokemonList = [pokemon1,pokemon2,pokemon3,pokemon4,pokemon5,pokemon6,pokemon7,pokemon8,pokemon9,pokemon10,pokemon11,pokemon12,pokemon13,pokemon14,pokemon15]
+    for pokemon in pokemonList:
+        db.session.add(pokemon)
+    
+    images = [
+    "/images/pokemon_berry.svg",
+    "/images/pokemon_egg.svg",
+    "/images/pokemon_potion.svg",
+    "/images/pokemon_super_potion.svg",
+    ]
+    for idx in range(10):
+        item = Item(
+            name = fake.ecommerce_name(),
+            price = randint(0,100),
+            happiness = randint(0,100),
+            imageUrl = choice(images),
+            pokemonId = randint(0,15)
+        )
+        db.session.add(item)
+    
+    
+    
+    
+    db.session.commit()
+   

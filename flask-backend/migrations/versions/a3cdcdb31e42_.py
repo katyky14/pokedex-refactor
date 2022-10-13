@@ -1,8 +1,8 @@
-"""Create a pokemon,pokemonType,item
+"""empty message
 
-Revision ID: f014d09b1f5c
+Revision ID: a3cdcdb31e42
 Revises: 
-Create Date: 2022-10-13 12:48:29.023130
+Create Date: 2022-10-13 14:32:41.450484
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f014d09b1f5c'
+revision = 'a3cdcdb31e42'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,7 +25,7 @@ def upgrade():
     sa.Column('defense', sa.Integer(), nullable=False),
     sa.Column('imageUrl', sa.String(length=255), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
-    sa.Column('type', sa.Enum('fire', 'electric', 'normal', 'ghost', 'psychic', 'water', 'bug', 'dragon', 'grass', 'fighting', 'ice', 'flying', 'poison', 'ground', 'rock', 'steel', name='pokemontypes'), nullable=False),
+    sa.Column('type', sa.String(), nullable=False),
     sa.Column('moves', sa.String(length=255), nullable=False),
     sa.Column('encounteredRate', sa.Float(), nullable=True),
     sa.Column('catchRate', sa.Float(), nullable=True),

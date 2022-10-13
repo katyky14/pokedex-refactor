@@ -10,7 +10,24 @@ class PokemonForm(FlaskForm):
     move1 = StringField("move1", validators=[DataRequired()])
     move2 = StringField("move2")
     number = IntegerField("Number", validators=[DataRequired()])
-    type = SelectField("Type", choices=[])
+    type = SelectField("Type", choices=[
+        "fire",
+        "electric",
+        "normal",
+        "ghost",
+        "psychic",
+        "water",
+        "bug",
+        "dragon",
+        "grass",
+        "fighting",
+        "ice",
+        "flying",
+        "poison",
+        "ground",
+        "rock",
+        "steel",
+    ])
     submit = SubmitField("Create New Pokemon")
     cancel = SubmitField("Cancel")
 
